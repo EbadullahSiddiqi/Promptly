@@ -68,7 +68,7 @@ function Navbar() {
               Home
             </Link>
             <Link 
-              href="/" 
+              href="/about" 
               className="hover:text-gray-600 transition-colors duration-200"
             >
               About
