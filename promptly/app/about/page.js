@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
 
 function page() {
   return (
-    <div>page</div>
-  )
+    <div>
+      <Navbar />
+      <h1>About</h1>
+    </div>
+  );
 }
 
-export default page
+export default page;

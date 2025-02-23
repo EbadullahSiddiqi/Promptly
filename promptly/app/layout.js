@@ -16,7 +16,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${interSans.variable} antialiased`}>
-        <Navbar />
         {children}
         <Footer />
       </body>

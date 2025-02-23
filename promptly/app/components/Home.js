@@ -27,7 +27,7 @@ function Home() {
             and publish content efficiently. No need to spend countless hours in manual labor!
           </p>
           <Link
-            href="/login"
+            href="/dashboard"
             className="text-center p-4 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-1/4"
           >
             Get Started

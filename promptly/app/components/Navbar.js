@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -28,19 +28,19 @@ function Navbar() {
   // Close menu when clicking outside
   useEffect(() => {
     const handleClick = (e) => {
-      if (isOpen && !e.target.closest('nav')) {
+      if (isOpen && !e.target.closest("nav")) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
   }, [isOpen]);
 
   return (
     <nav
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-none backdrop-blur-md" : "bg-transparent shadow-none"
+        isScrolled ? "bg-none backdrop-blur-sm" : "bg-transparent shadow-none"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,20 +61,20 @@ function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-10 text-gray-800 font-[450]">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="hover:text-gray-600 transition-colors duration-200"
             >
               Home
             </Link>
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className="hover:text-gray-600 transition-colors duration-200"
             >
               About
             </Link>
-            <Link 
-              href="/" 
+            <Link
+              href="/dashboard"
               className="hover:text-gray-600 transition-colors duration-200"
             >
               Product
@@ -101,9 +101,7 @@ function Navbar() {
         {/* Mobile Menu */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen 
-              ? "max-h-[500px] opacity-100" 
-              : "max-h-0 opacity-0"
+            isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-lg mb-4 space-y-4">
@@ -115,14 +113,14 @@ function Navbar() {
               Home
             </Link>
             <Link
-              href="/"
+              href="/about"
               className="block py-2 text-gray-800 hover:text-gray-600 transition-colors duration-200"
               onClick={() => setIsOpen(false)}
             >
               About
             </Link>
             <Link
-              href="/"
+              href="/dashboard"
               className="block py-2 text-gray-800 hover:text-gray-600 transition-colors duration-200"
               onClick={() => setIsOpen(false)}
             >
