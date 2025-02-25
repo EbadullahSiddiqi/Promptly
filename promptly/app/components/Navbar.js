@@ -60,7 +60,7 @@ function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-10 text-gray-800 font-[450]">
+          <div className="hidden md:flex h-full justify-center items-center gap-10 text-gray-800 font-[450]">
             <Link
               href="/"
               className="hover:text-gray-600 transition-colors duration-200"
@@ -75,9 +75,9 @@ function Navbar() {
             </Link>
             <Link
               href="/dashboard"
-              className="hover:text-gray-600 transition-colors duration-200"
+              className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
             >
-              Product
+              Get Started
             </Link>
           </div>
 
@@ -104,7 +104,7 @@ function Navbar() {
             isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-lg mb-4 space-y-4">
+          <div className="px-4 py-2 flex flex-col  bg-white/80 backdrop-blur-md rounded-lg mb-4 space-y-4">
             <Link
               href="/"
               className="block py-2 text-gray-800 hover:text-gray-600 transition-colors duration-200"
@@ -121,10 +121,10 @@ function Navbar() {
             </Link>
             <Link
               href="/dashboard"
-              className="block py-2 text-gray-800 hover:text-gray-600 transition-colors duration-200"
+              className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
               onClick={() => setIsOpen(false)}
             >
-              Product
+              Get Started
             </Link>
           </div>
         </div>

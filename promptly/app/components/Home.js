@@ -28,7 +28,7 @@ function Home() {
           </p>
           <Link
             href="/dashboard"
-            className="text-center p-4 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-1/4"
+            className="text-center p-4 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-32"
           >
             Get Started
           </Link>

@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="transition-all duration-300">
       <body className={`${interSans.variable} antialiased`}>
         {children}
         <Footer />
