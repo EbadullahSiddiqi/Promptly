@@ -5,6 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import logo from "../../public/logo.png";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,12 +80,20 @@ function Navbar() {
             >
               About
             </Link>
-            <Link
+            {/* <Link
               href="/dashboard"
               className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
             >
               Get Started
-            </Link>
+            </Link> */}
+
+            <SignedOut>
+              <SignInButton className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28" />
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
 
           {/* Mobile Menu Button */}
@@ -119,13 +134,20 @@ function Navbar() {
             >
               About
             </Link>
-            <Link
+            {/* <Link
               href="/dashboard"
               className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
               onClick={() => setIsOpen(false)}
             >
               Get Started
-            </Link>
+            </Link> */}
+
+            <SignedOut>
+              <SignInButton
+                onClick={() => setIsOpen(false)}
+                className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
+              />
+            </SignedOut>
           </div>
         </div>
       </div>
