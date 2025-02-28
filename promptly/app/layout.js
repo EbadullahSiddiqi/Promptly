@@ -15,7 +15,7 @@ const interSans = Inter({
 });
 
 export const metadata = {
-  title: "Promptly",
+  title: "Content Co-Pilot",
   description: "The Content Co-Pilot you've always needed!",
 };
 

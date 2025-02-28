@@ -36,7 +36,7 @@ function Features() {
   return (
     <div className="py-20">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-5xl font-bold leading-[3.5rem] text-center">
+        <h1 className="lg:text-5xl text-3xl font-bold leading-[2.5rem] text-center">
           Features That'll <br /> Change Your World!
         </h1>
       </div>

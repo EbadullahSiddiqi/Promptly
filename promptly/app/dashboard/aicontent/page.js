@@ -8,10 +8,15 @@ import {
   Linkedin,
   Instagram,
   Copy,
+  Save, // Add Save icon
   Check,
   Menu,
   X,
+  Home,
 } from "lucide-react";
+import { useAuth } from "@clerk/nextjs"; // Import useAuth from Clerk
+import { createSupabaseClient } from "../../lib/supabase.js"; // Import your Supabase client
+import Link from "next/link.js";
 
 export default function NewContent() {
   const [contentType, setContentType] = useState("");
@@ -19,8 +24,12 @@ export default function NewContent() {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [title, setTitle] = useState(""); // Add title state for saving content
+  const [isSaving, setIsSaving] = useState(false); // Add saving state
+  const { userId, isSignedIn } = useAuth(); // Get user ID from Clerk
 
   useEffect(() => {
     // Check if screen is mobile on component mount and window resize
@@ -100,6 +109,56 @@ export default function NewContent() {
     }
   };
 
+  // Add function to save content to Supabase
+  const saveContent = async (content) => {
+    if (!isSignedIn || !userId) {
+      alert("You must be signed in to save content");
+      return;
+    }
+
+    if (!title.trim()) {
+      alert("Please enter a title for your content");
+      return;
+    }
+
+    setIsSaving(true);
+
+    try {
+      const supabase = createSupabaseClient();
+
+      const { data, error } = await supabase
+        .from("content_pieces")
+        .insert({
+          user_id: userId,
+          title: title,
+          content_type: contentType,
+          content: content,
+          updated_at: new Date().toISOString(),
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+      setTitle(""); // Reset title after saving
+    } catch (error) {
+      console.error("Error saving content:", error);
+      alert("Failed to save content. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Get the latest AI message content
+  const getLatestAIContent = () => {
+    const aiMessages = messages.filter((msg) => msg.role === "assistant");
+    return aiMessages.length > 0
+      ? aiMessages[aiMessages.length - 1].content
+      : "";
+  };
+
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
       {/* Mobile Header with Menu Button */}
@@ -156,11 +215,18 @@ export default function NewContent() {
       <div className="flex-1 flex flex-col">
         {/* Desktop Header */}
         <div className="hidden md:block bg-white border-b p-4">
-          <h1 className="text-xl font-semibold">
-            {contentType
-              ? `Create ${contentTypes.find((t) => t.id === contentType)?.name}`
-              : "Select Content Type"}
-          </h1>
+          <div className="flex justify-between">
+            <h1 className="text-xl font-semibold">
+              {contentType
+                ? `Create ${
+                    contentTypes.find((t) => t.id === contentType)?.name
+                  }`
+                : "Select Content Type"}
+            </h1>
+            <Link href="/dashboard">
+              <Home className="cursor-pointer" />
+            </Link>
+          </div>
         </div>
 
         {/* Chat Area */}
@@ -182,16 +248,31 @@ export default function NewContent() {
                 <div className="flex justify-between items-start gap-4">
                   <p className="whitespace-pre-wrap">{message.content}</p>
                   {message.role === "assistant" && (
-                    <button
-                      onClick={() => copyToClipboard(message.content)}
-                      className="text-gray-500 hover:text-gray-700 flex-shrink-0"
-                    >
-                      {copied ? (
-                        <Check className="h-4 w-4" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
+                    <div className="flex flex-col gap-2">
+                      <button
+                        onClick={() => copyToClipboard(message.content)}
+                        className="text-gray-500 hover:text-gray-700 flex-shrink-0"
+                        title="Copy to clipboard"
+                      >
+                        {copied ? (
+                          <Check className="h-4 w-4" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
+                      </button>
+
+                      {isSignedIn && (
+                        <button
+                          onClick={() =>
+                            document.getElementById("saveModal").showModal()
+                          }
+                          className="text-gray-500 hover:text-gray-700 flex-shrink-0"
+                          title="Save content"
+                        >
+                          <Save className="h-4 w-4" />
+                        </button>
                       )}
-                    </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -235,6 +316,44 @@ export default function NewContent() {
           </form>
         </div>
       </div>
+
+      {/* Save Modal */}
+      <dialog
+        id="saveModal"
+        className="modal p-4 rounded-lg shadow-lg w-full max-w-md mx-auto"
+      >
+        <div className="modal-content">
+          <h3 className="text-lg font-semibold mb-4">Save your content</h3>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter a title for your content"
+              className="w-full p-2 border rounded-lg"
+            />
+          </div>
+          <div className="flex justify-end space-x-2">
+            <button
+              onClick={() => document.getElementById("saveModal").close()}
+              className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                saveContent(getLatestAIContent());
+                document.getElementById("saveModal").close();
+              }}
+              disabled={isSaving || !title.trim()}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            >
+              {isSaving ? "Saving..." : saved ? "Saved!" : "Save"}
+            </button>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }

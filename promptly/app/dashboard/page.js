@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BarChart,
   FileText,
@@ -13,25 +12,18 @@ import {
   PlusCircle,
   TrendingUp,
   Menu,
+  Library,
 } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [recentContent, setRecentContent] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { isSignedIn } = useUser();
 
-  // Sample data
-  const recentContent = [
-    { id: 1, title: "Top 10 SEO Strategies", status: "Draft", progress: 70 },
-    {
-      id: 2,
-      title: "Email Marketing Guide",
-      status: "Published",
-      progress: 100,
-    },
-    { id: 3, title: "Social Media Tips", status: "In Review", progress: 85 },
-  ];
-
+  // Sample analytics data (unchanged)
   const analytics = {
     totalContent: 25,
     publishedContent: 18,
@@ -39,22 +31,45 @@ export default function Dashboard() {
     monthlyGrowth: "+15%",
   };
 
+  // Fetch content from the database
+  useEffect(() => {
+    const fetchContent = async () => {
+      if (!isSignedIn) return;
+
+      try {
+        const response = await fetch("/api/content");
+        if (!response.ok) throw new Error("Failed to fetch content");
+
+        const data = await response.json();
+        setRecentContent(data); // Update state with fetched content
+      } catch (error) {
+        console.error("Error fetching content:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
+      }
+    };
+
+    fetchContent();
+  }, [isSignedIn]); // Re-run effect when isSignedIn changes
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header (unchanged) */}
       <header className="bg-white shadow-sm">
         <div className="flex items-center justify-between px-4 sm:px-6 py-4">
           <div className="flex items-center space-x-2 sm:space-x-4">
             <button onClick={toggleSidebar} className="md:hidden p-2">
               <Menu className="h-5 w-5 text-gray-600" />
             </button>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
-              Promptly
-            </h1>
+            <Link href="/" className="font-bold text-lg lg:text-2xl text-black">
+              <span className="text-[#764ca3]">C</span>ontent{" "}
+              <span className="text-[#35aad7]">C</span>o-
+              <span className="text-[#606cb5]">P</span>ilot
+            </Link>
             <div className="hidden sm:flex relative">
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               <input
@@ -87,7 +102,7 @@ export default function Dashboard() {
       </header>
 
       <div className="flex flex-col md:flex-row">
-        {/* Sidebar - Desktop (unchanged) and Mobile (with overlay) */}
+        {/* Sidebar (unchanged) */}
         <aside
           className={`
           md:w-64 md:static md:block
@@ -116,6 +131,15 @@ export default function Dashboard() {
                       <BarChart className="h-5 w-5" />
                       <span>Dashboard</span>
                     </a>
+                  </li>
+                  <li>
+                    <Link
+                      href="/dashboard/content"
+                      className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
+                    >
+                      <Library className="h-5 w-5" />
+                      <span>Content Library</span>
+                    </Link>
                   </li>
                   <li>
                     <a
@@ -161,14 +185,14 @@ export default function Dashboard() {
 
         {/* Main Content */}
         <main className="flex-1 p-4 sm:p-6">
-          {/* Quick Stats */}
+          {/* Quick Stats (unchanged) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6">
             <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Total Content</p>
                   <p className="text-xl sm:text-2xl font-bold">
-                    {analytics.totalContent}
+                    {recentContent.length}
                   </p>
                 </div>
                 <div className="bg-blue-100 p-3 rounded-lg">
@@ -180,9 +204,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Published</p>
-                  <p className="text-xl sm:text-2xl font-bold">
-                    {analytics.publishedContent}
-                  </p>
+                  <p className="text-xl sm:text-2xl font-bold">0</p>
                 </div>
                 <div className="bg-green-100 p-3 rounded-lg">
                   <TrendingUp className="h-6 w-6 text-green-600" />
@@ -193,9 +215,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Avg. Engagement</p>
-                  <p className="text-xl sm:text-2xl font-bold">
-                    {analytics.avgEngagement}
-                  </p>
+                  <p className="text-xl sm:text-2xl font-bold">0%</p>
                 </div>
                 <div className="bg-purple-100 p-3 rounded-lg">
                   <Users className="h-6 w-6 text-purple-600" />
@@ -206,9 +226,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Monthly Growth</p>
-                  <p className="text-xl sm:text-2xl font-bold">
-                    {analytics.monthlyGrowth}
-                  </p>
+                  <p className="text-xl sm:text-2xl font-bold">0%</p>
                 </div>
                 <div className="bg-yellow-100 p-3 rounded-lg">
                   <TrendingUp className="h-6 w-6 text-yellow-600" />
@@ -232,29 +250,35 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="p-4 sm:p-6">
-              <div className="space-y-4">
-                {recentContent.map((content) => (
-                  <div
-                    key={content.id}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg gap-3"
-                  >
-                    <div>
-                      <h3 className="font-medium">{content.title}</h3>
-                      <p className="text-sm text-gray-600">
-                        Status: {content.status}
-                      </p>
-                    </div>
-                    <div className="w-full sm:w-32">
-                      <div className="h-2 bg-gray-200 rounded-full">
-                        <div
-                          className="h-2 bg-blue-600 rounded-full"
-                          style={{ width: `${content.progress}%` }}
-                        />
+              {loading ? (
+                <p className="text-center text-gray-600">Loading...</p>
+              ) : recentContent.length === 0 ? (
+                <p className="text-center text-gray-600">No content found.</p>
+              ) : (
+                <div className="space-y-4">
+                  {recentContent.map((content) => (
+                    <div
+                      key={content.id}
+                      className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 rounded-lg gap-3"
+                    >
+                      <div>
+                        <h3 className="font-medium">{content.title}</h3>
+                        <p className="text-sm text-gray-600">
+                          Status: {content.status}
+                        </p>
+                      </div>
+                      <div className="w-full sm:w-32">
+                        <div className="h-2 bg-gray-200 rounded-full">
+                          <div
+                            className="h-2 bg-blue-600 rounded-full"
+                            style={{ width: `${content.progress}%` }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </main>

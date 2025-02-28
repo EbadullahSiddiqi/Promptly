@@ -46,7 +46,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 py-3 right-0 left-0 z-50 transition-all duration-300 ${
         isScrolled ? "bg-none backdrop-blur-sm" : "bg-transparent shadow-none"
       }`}
     >
@@ -54,15 +54,10 @@ function Navbar() {
         <div className="flex justify-between items-center p-4">
           {/* Logo and Brand */}
           <div className="flex gap-2 items-center">
-            <Image
-              src={logo}
-              alt="Logo"
-              width={60}
-              height={60}
-              className="bg-white rounded-full"
-            />
-            <h1 className="font-bold text-xl text-gray-800">
-              <i>Promptly</i>
+            <h1 className="font-bold text-xl lg:text-3xl text-black">
+              <span className="text-[#764ca3]">C</span>ontent{" "}
+              <span className="text-[#35aad7]">C</span>o-
+              <span className="text-[#606cb5]">P</span>ilot
             </h1>
           </div>
 
@@ -143,11 +138,12 @@ function Navbar() {
             </Link> */}
 
             <SignedOut>
-              <SignInButton
-                onClick={() => setIsOpen(false)}
-                className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
-              />
+              <SignInButton className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28" />
             </SignedOut>
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </div>
