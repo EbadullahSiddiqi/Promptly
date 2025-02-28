@@ -66,9 +66,9 @@ export default function Dashboard() {
               <Menu className="h-5 w-5 text-gray-600" />
             </button>
             <Link href="/" className="font-bold text-lg lg:text-2xl text-black">
-              <span className="text-[#764ca3]">C</span>ontent{" "}
-              <span className="text-[#35aad7]">C</span>o-
-              <span className="text-[#606cb5]">P</span>ilot
+              <span className="text-[/soon764ca3]">C</span>ontent{" "}
+              <span className="text-[/soon35aad7]">C</span>o-
+              <span className="text-[/soon606cb5]">P</span>ilot
             </Link>
             <div className="hidden sm:flex relative">
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
@@ -124,13 +124,13 @@ export default function Dashboard() {
                 </div>
                 <ul className="space-y-2">
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/dashboard"
                       className="flex items-center space-x-3 px-4 py-2 text-blue-600 bg-blue-50 rounded-lg"
                     >
                       <BarChart className="h-5 w-5" />
                       <span>Dashboard</span>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <Link
@@ -143,7 +143,7 @@ export default function Dashboard() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/soon"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <FileText className="h-5 w-5" />
@@ -152,7 +152,7 @@ export default function Dashboard() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/dashboard/aicontent"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <Sparkles className="h-5 w-5" />
@@ -161,7 +161,7 @@ export default function Dashboard() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/soon"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <Users className="h-5 w-5" />
@@ -170,7 +170,7 @@ export default function Dashboard() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/soon"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <Calendar className="h-5 w-5" />

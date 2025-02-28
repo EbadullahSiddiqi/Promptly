@@ -163,11 +163,16 @@ export default function NewContent() {
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
       {/* Mobile Header with Menu Button */}
       <div className="md:hidden bg-white border-b p-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold">
-          {contentType
-            ? `Create ${contentTypes.find((t) => t.id === contentType)?.name}`
-            : "Select Content Type"}
-        </h1>
+        <div className="flex gap-10">
+          <h1 className="text-xl font-semibold">
+            {contentType
+              ? `Create ${contentTypes.find((t) => t.id === contentType)?.name}`
+              : "Select Content Type"}
+          </h1>
+          <Link href="/dashboard" className="mt-1">
+            <Home />
+          </Link>
+        </div>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="p-2 rounded-lg hover:bg-gray-100"
@@ -224,7 +229,7 @@ export default function NewContent() {
                 : "Select Content Type"}
             </h1>
             <Link href="/dashboard">
-              <Home className="cursor-pointer" />
+              <Home className="cursor-pointer mt-1" />
             </Link>
           </div>
         </div>
