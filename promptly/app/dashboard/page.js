@@ -65,10 +65,12 @@ export default function Dashboard() {
             <button onClick={toggleSidebar} className="md:hidden p-2">
               <Menu className="h-5 w-5 text-gray-600" />
             </button>
-            <Link href="/" className="font-bold text-lg lg:text-2xl text-black">
-              <span className="text-[/soon764ca3]">C</span>ontent{" "}
-              <span className="text-[/soon35aad7]">C</span>o-
-              <span className="text-[/soon606cb5]">P</span>ilot
+            <Link href="/" className="font-bold text-lg lg:text-xl text-black">
+              <h1 className="font-bold text-xl lg:text-3xl text-black">
+                <span className="text-[#764ca3]">C</span>ontent{" "}
+                <span className="text-[#35aad7]">C</span>o-
+                <span className="text-[#606cb5]">P</span>ilot
+              </h1>
             </Link>
             <div className="hidden sm:flex relative">
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />

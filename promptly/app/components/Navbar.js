@@ -12,10 +12,12 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,10 +85,19 @@ function Navbar() {
             </Link> */}
 
             <SignedOut>
-              <SignInButton className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28" />
+              <SignInButton
+                forceRedirectUrl="/dashboard"
+                className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
+              />
             </SignedOut>
 
             <SignedIn>
+              <Link
+                href="/dashboard"
+                className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
+              >
+                Dashboard
+              </Link>
               <UserButton />
             </SignedIn>
           </div>
@@ -143,6 +154,12 @@ function Navbar() {
 
             <SignedIn>
               <UserButton />
+              <Link
+                href="/dashboard"
+                className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
+              >
+                Dashboard
+              </Link>
             </SignedIn>
           </div>
         </div>
