@@ -46,7 +46,7 @@ export default function NewContent() {
   }, []);
 
   const contentTypes = [
-    { id: "youtube", name: "YouTube Script", icon: Youtube },
+    { id: "youtube", name: "YouTube Research", icon: Youtube },
     { id: "blog", name: "Article/Blog", icon: FileText },
     { id: "linkedin", name: "LinkedIn Post", icon: Linkedin },
     { id: "instagram", name: "Instagram Post", icon: Instagram },

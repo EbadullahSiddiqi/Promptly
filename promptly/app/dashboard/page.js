@@ -144,40 +144,31 @@ export default function Dashboard() {
                     </Link>
                   </li>
                   <li>
-                    <a
-                      href="/soon"
-                      className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
-                    >
-                      <FileText className="h-5 w-5" />
-                      <span>Content</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
+                    <Link
                       href="/dashboard/aicontent"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <Sparkles className="h-5 w-5" />
                       <span>AI Assistant</span>
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/soon"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <Users className="h-5 w-5" />
                       <span>Team</span>
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/soon"
                       className="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg"
                     >
                       <Calendar className="h-5 w-5" />
                       <span>Schedule</span>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>

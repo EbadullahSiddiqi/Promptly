@@ -4,6 +4,7 @@ import hero from "../../public/hero.avif";
 import heroCyl from "../../public/hero-cyl.avif";
 import heroSemi from "../../public/hero-semi.avif";
 import Link from "next/link";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 function Home() {
   return (
@@ -24,14 +25,25 @@ function Home() {
           </h1>
           <p className="text-lg lg:text-xl font-[350] text-center lg:text-left">
             An AI-powered assistant that helps users research, write, optimize,
-            and publish content efficiently. No need to spend countless hours in manual labor!
+            and publish content efficiently. No need to spend countless hours in
+            manual labor!
           </p>
-          <Link
-            href="/dashboard"
-            className="text-center p-4 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-32"
-          >
-            Get Started
-          </Link>
+          <SignedOut>
+            <Link
+              href="/pricing"
+              className="text-center p-4 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-32"
+            >
+              Get Started
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <Link
+              href="/dashboard"
+              className="text-center p-4 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-32"
+            >
+              Get Started
+            </Link>
+          </SignedIn>
         </div>
       </div>
       <div className="relative mt-8 lg:mt-0">

@@ -1,6 +1,57 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const linkedinTips = `  
+      Tips for Writing Effective LinkedIn Posts
+Start with "Cognitive Friction"
+Begin your post with a statement that challenges common assumptions or makes people pause and think. This creates curiosity and encourages readers to stay engaged.
+
+Example Structure:
+
+"Most people believe [common assumption]. But here's why they're wrong."
+
+"The biggest mistake in [industry/topic] isn't what you think."
+
+Note to AI: Do not include the example directly in the post. Use it only as a reference for tone and structure.
+
+Create a "Mini-Mystery"
+Pose a question or hint at an unexpected answer to spark curiosity. This keeps readers hooked as they scroll.
+
+Example Structure:
+
+"What’s the #1 reason [problem] happens? Hint: It’s NOT [common assumption]."
+
+"The secret to [success in X] isn’t what most people focus on."
+
+Note to AI: Do not include the example directly in the post. Use it only as a reference for tone and structure.
+
+Make Your Post Easy to Read
+Use formatting techniques to improve readability. Avoid long paragraphs and dense text. Instead, break your content into short, digestible chunks.
+
+Example Structure:
+
+Use line breaks between ideas.
+
+Keep sentences short and impactful.
+
+Avoid jargon or overly complex language.
+
+Example:
+Instead of:
+"Most people struggle with [problem] because they focus on [common approach], which doesn’t address the root cause."
+
+Write:
+"Struggling with [problem]?
+The issue isn’t [common approach].
+It’s [better solution].
+Here’s why."
+
+Note to AI: Do not include the example directly in the post. Use it only as a reference for tone and structure.
+
+Key Instruction for the AI:
+When generating a LinkedIn post, follow the tips above but do not include the examples verbatim. Instead, use the examples as inspiration to craft original content that aligns with the tone and structure described.
+`;
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Configuration for the fine-tuned model
@@ -115,11 +166,11 @@ export async function POST(request) {
           text: 'output: This isn’t about money.\n\nIt’s about audacity.\n\nMoney is not greed.\n\n- Every dollar is a tool for change.\n- Every budget mastered is a step closer to freedom.\n- Each financial decision strengthens your resolve.\n\nBecause:\nIt builds confidence.\n\nIf you avoid fixing your finances, you’re missing the point.\n\nHere’s the truth:\nYou gain power through every dollar.\n\nHere are 6 Steps for this:\n\n1. Save and Build\n- Let yourself see the savings grow.\n- It’s okay to start small, just don’t stop.\n\n2. Crush Your Debt\n- Face your debts head-on.\n- Ignoring won’t help, tackling it will.\n\n3. Master Your Budget\n- Look closer at your spending.\n- Understand the flow, not just the numbers.\n\n4. Learn and Apply\n- There’s a lesson in every financial move.\n- Make sure it sticks with you.\n\n5. Realign Your Goals\n- Adjust your plans with what you’ve learned.\n- Shift forward with new financial insight.\n\n6. Evolve and Keep Growing\n- Fall in love with the financial freedom.\n- Each step makes you stronger and more independent.\n\nRemember:\n"Money won’t make you brave, but it’ll hand you the mic."\n\nBuild your financial backbone until it’s unbreakable.\n\n♻️ Repost this if you agree.\n\nPS: If you struggle with writing your first post on Linkedin, try EasyGen for free. \n\n1. Scroll to the top. \n2. Click "Visit my website" to try EasyGen. \n3. Follow Anisha Jain to never miss a post.',
         },
         {
-          text: `input: Write a LinkedIn post about ${userInput}. Format: Start by explaining the paradise life, then gradually shift towards the challenges. Present a simple formula: combining the false dreams, the struggles and the rewards. Add a \"P.S. \" line at the end. Include relevant hashtags. Tone: friendly, sharing-insider-knowledge.`,
+          text: `input: Write a LinkedIn post about ${userInput}. Add a \"P.S. \" line at the end. Include relevant hashtags. Tone: friendly, sharing-insider-knowledge. The post should be based on these points ${linkedinTips}. Don't use emojis`,
         },
         {
           text: "output: ",
-        }
+        },
       ];
 
       const result = await model.generateContent({
@@ -183,14 +234,65 @@ export async function POST(request) {
   }
 }
 
+function print() {
+  console.log("Content");
+}
+
 function getSystemPrompt(contentType) {
   const prompts = {
-    youtube: `You are an expert YouTube script writer. Create engaging, well-structured video scripts that follow this format:
-      - Hook (attention-grabbing opening)
-      - Introduction
-      - Main points (with timestamps)
-      - Call to action
-      Keep the tone conversational and engaging.`,
+    youtube: `You are an elite research analyst with exceptional investigative skills, known for uncovering both mainstream information and obscure knowledge on any topic. Your mission is to provide comprehensive, nuanced research that explores multiple layers of a subject—from widely known facts to lesser-known perspectives and hidden connections.
+
+RESEARCH METHODOLOGY:
+1. INITIAL EXPLORATION: Begin with a thorough scan of the topic landscape, identifying both central and peripheral elements.
+2. DEPTH MAPPING: For each identified area, explore at least three layers deep, consistently asking "What lies beneath this information?" and "What might others have missed?"
+3. PERSPECTIVE DIVERSIFICATION: Deliberately seek contrasting viewpoints, historical shifts in understanding, and cross-disciplinary connections.
+
+DELIVERABLE STRUCTURE:
+
+Topic Overview:
+- Provide a multidimensional summary that includes mainstream understanding AND less obvious angles
+- Identify historical context and evolution of thinking on the topic
+- Note significant paradigm shifts or turning points in understanding
+
+Core Knowledge Layers (for each subtopic):
+- Layer 1: Widely accepted facts, data, and mainstream understanding
+- Layer 2: Nuanced perspectives, scholarly debates, and evolving interpretations
+- Layer 3: Obscure connections, emerging research, and underrepresented viewpoints
+
+Deep Analysis Elements:
+- Hidden patterns and non-obvious relationships between aspects of the topic
+- Systemic factors and underlying mechanisms that explain surface-level phenomena
+- Cross-domain insights that illuminate the topic from unexpected angles
+- Identification of information gaps, unanswered questions, or areas of limited research
+
+Alternative Narratives Section:
+- Competing frameworks or models for understanding the topic
+- Historical or cultural variations in approaching the subject
+- Contrarian perspectives with substantive supporting evidence
+- Analysis of why certain perspectives receive less attention
+
+Resource Curation:
+- Primary sources and firsthand accounts
+- Academic research, including recent studies and seminal works
+- Niche publications, specialized databases, or unique information repositories
+- Expert communities or forums where cutting-edge discussions occur
+
+Visualization Recommendations:
+- Conceptual maps showing relationships between ideas and influences
+- Visual representations of competing theories or models
+- Timeline suggestions showing evolution of understanding on the topic
+
+Analytical Synthesis:
+- Connect disparate threads into cohesive insights
+- Identify implications that might not be immediately apparent
+- Suggest novel frameworks for understanding the topic
+
+Research Limitations:
+- Acknowledge knowledge boundaries and areas of uncertainty
+- Identify potential cognitive biases affecting mainstream understanding of the topic
+- Note where insufficient research exists and why this might be the case
+
+For any topic, apply this investigative approach to reveal both the visible and less visible dimensions, providing the content creator with comprehensive material that goes beyond surface-level treatment. Search in the depths of the internet and ifnd things that will really ignite the audience's interest and force them to watch. The information should be the best, and valid with proper references`,
 
     blog: `You are an expert blog writer. Create well-researched, SEO-friendly articles that are:
       - Engaging and informative
@@ -199,16 +301,16 @@ function getSystemPrompt(contentType) {
       - Natural keyword integration`,
 
     linkedin: `You are a LinkedIn content expert. Create professional posts that:
-      - Are concise and valuable
+      - Are valuable
       - Include relevant hashtags
       - Drive engagement
-      - Maintain professional tone`,
+      `,
 
-    instagram: `You are an Instagram content creator. Create engaging posts that:
-      - Are visually descriptive
-      - Include relevant hashtags
+    instagram: `You are an Instagram content creator. According to the recent trends, suggest content ideas that will not only attract viewers but keep them retained as well. Create engaging posts that:
+      - Using viral hooks (popular videos e.g. a ball hitting the camera, and other viral hooks which you should decide depending upon the type of video that needs to be created). Use viral hook only if necessary. If not, then suggest a hook idea depending upon the video
+      - A viral script that uses modern and attractive elemnts and most suited for a Instagram Reel of about 40 seconds
       - Have an engaging caption
-      - Include a call to action`,
+      `,
   };
 
   return (

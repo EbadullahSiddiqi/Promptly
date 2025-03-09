@@ -77,6 +77,12 @@ function Navbar() {
             >
               About
             </Link>
+            <Link
+              href="/pricing"
+              className="hover:text-gray-600 transition-colors duration-200"
+            >
+              Pricing
+            </Link>
             {/* <Link
               href="/dashboard"
               className="text-center p-2 bg-gray-900 hover:bg-black transition-all duration-300 text-white font-normal rounded-xl w-full lg:w-28"
@@ -139,6 +145,12 @@ function Navbar() {
               onClick={() => setIsOpen(false)}
             >
               About
+            </Link>
+            <Link
+              href="/pricing"
+              className="hover:text-gray-600 transition-colors duration-200"
+            >
+              Pricing
             </Link>
             {/* <Link
               href="/dashboard"
