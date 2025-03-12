@@ -3,7 +3,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const linkedinTips = `  
       Tips for Writing Effective LinkedIn Posts
-Start with "Cognitive Friction"
 Begin your post with a statement that challenges common assumptions or makes people pause and think. This creates curiosity and encourages readers to stay engaged.
 
 Example Structure:

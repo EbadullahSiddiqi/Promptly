@@ -37,7 +37,7 @@ function PricingPage() {
         "Priority Support",
       ],
       cta: "Subscribe Now",
-      ctaLink: "/soon",
+      ctaLink: "/pro",
       icon: Zap,
       popular: true,
     },
@@ -122,7 +122,7 @@ function PricingPage() {
                 )}
                 {tier.name === "Pro" && (
                   <Link
-                    href="/soon"
+                    href="/pro"
                     className={`mt-4 w-full text-center ${
                       tier.popular
                         ? "bg-blue-500 hover:bg-blue-600 text-white"

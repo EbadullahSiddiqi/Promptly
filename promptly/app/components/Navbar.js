@@ -55,13 +55,13 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center p-4">
           {/* Logo and Brand */}
-          <div className="flex gap-2 items-center">
+          <Link href="/" className="flex gap-2 items-center cursor-pointer">
             <h1 className="font-bold text-xl lg:text-3xl text-black">
               <span className="text-[#764ca3]">C</span>ontent{" "}
               <span className="text-[#35aad7]">C</span>o-
               <span className="text-[#606cb5]">P</span>ilot
             </h1>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex h-full justify-center items-center gap-10 text-gray-800 font-[450]">
@@ -82,6 +82,12 @@ function Navbar() {
               className="hover:text-gray-600 transition-colors duration-200"
             >
               Pricing
+            </Link>
+            <Link
+              href="/pro"
+              className="hover:text-gray-600 transition-colors duration-200"
+            >
+              Upgrade
             </Link>
             {/* <Link
               href="/dashboard"
@@ -151,6 +157,12 @@ function Navbar() {
               className="hover:text-gray-600 transition-colors duration-200"
             >
               Pricing
+            </Link>
+            <Link
+              href="/pro"
+              className="hover:text-gray-600 transition-colors duration-200"
+            >
+              Upgrade
             </Link>
             {/* <Link
               href="/dashboard"
