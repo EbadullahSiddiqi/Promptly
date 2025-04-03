@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { brandIdentity } from "../../brand.js";
 
 const linkedinTips = `  
       Tips for Writing Effective LinkedIn Posts
@@ -165,7 +166,7 @@ export async function POST(request) {
           text: 'output: This isn’t about money.\n\nIt’s about audacity.\n\nMoney is not greed.\n\n- Every dollar is a tool for change.\n- Every budget mastered is a step closer to freedom.\n- Each financial decision strengthens your resolve.\n\nBecause:\nIt builds confidence.\n\nIf you avoid fixing your finances, you’re missing the point.\n\nHere’s the truth:\nYou gain power through every dollar.\n\nHere are 6 Steps for this:\n\n1. Save and Build\n- Let yourself see the savings grow.\n- It’s okay to start small, just don’t stop.\n\n2. Crush Your Debt\n- Face your debts head-on.\n- Ignoring won’t help, tackling it will.\n\n3. Master Your Budget\n- Look closer at your spending.\n- Understand the flow, not just the numbers.\n\n4. Learn and Apply\n- There’s a lesson in every financial move.\n- Make sure it sticks with you.\n\n5. Realign Your Goals\n- Adjust your plans with what you’ve learned.\n- Shift forward with new financial insight.\n\n6. Evolve and Keep Growing\n- Fall in love with the financial freedom.\n- Each step makes you stronger and more independent.\n\nRemember:\n"Money won’t make you brave, but it’ll hand you the mic."\n\nBuild your financial backbone until it’s unbreakable.\n\n♻️ Repost this if you agree.\n\nPS: If you struggle with writing your first post on Linkedin, try EasyGen for free. \n\n1. Scroll to the top. \n2. Click "Visit my website" to try EasyGen. \n3. Follow Anisha Jain to never miss a post.',
         },
         {
-          text: `input: Write a LinkedIn post about ${userInput}. Add a \"P.S. \" line at the end. Include relevant hashtags. Tone: friendly, sharing-insider-knowledge. The post should be based on these points ${linkedinTips}. Don't use emojis`,
+          text: `input: Write a LinkedIn post about ${userInput}. Add a \"P.S. \" line at the end. Include relevant hashtags. Tone: friendly, sharing-insider-knowledge. The post should be based on these points ${linkedinTips}. Don't use emojis. Use my Brand Identity: ${brandIdentity} and make sure the post lines up with my content strategy`,
         },
         {
           text: "output: ",
@@ -180,7 +181,7 @@ export async function POST(request) {
       return NextResponse.json({
         content: result.response.text(),
       });
-    } else if (contentType === "indiehacker") {
+    } else if (contentType === "indiehackeradsdsd") {
       // Example of another fine-tuned model format
       const parts = [
         {
@@ -209,7 +210,8 @@ export async function POST(request) {
       return NextResponse.json({
         content: result.response.text(),
       });
-    } else {
+    }
+     else {
       // For other content types, use the standard approach with system prompts
       const systemPrompt = getSystemPrompt(contentType);
       const prompt = `${systemPrompt}\n\nUser Request: ${userInput}`;
